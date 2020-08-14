@@ -36,7 +36,7 @@ void send_msg(uint16_t keycode, bool pressed) {
 void get_msg(void) {
   while (uart_available()) {
     msg[msg_idx] = uart_getchar();
-    //dprintf("idx: %u, recv: %u\n", msg_idx, msg[msg_idx]);
+    dprintf("idx: %u, recv: %u\n", msg_idx, msg[msg_idx]);
     if (msg_idx == 0 && (msg[msg_idx] != UART_PREAMBLE)) {
       dprintf("Byte sync error!\n");
       msg_idx = 0;

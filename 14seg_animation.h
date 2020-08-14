@@ -87,7 +87,7 @@ void animation_bounce(animation_t *animation) {
 void _refresh(animation_t *animation, bool force) {
     if ((timer_elapsed(animation->delay_timer) > animation->speed) || force) {
         if (strlen(animation->message) > INT8_MAX) {
-            // uprintf("Message too long! Max: %d\n", INT8_MAX);
+            // dprintf("Message too long! Max: %d\n", INT8_MAX);
             return;
         }
 

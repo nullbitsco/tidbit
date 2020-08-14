@@ -171,8 +171,8 @@ void HT16K33_refresh(HT16K33 *disp) {
 
 void HT16K33_printBuffer(HT16K33 *disp) {
   for (uint8_t i=0; i<disp->size; i++) {
-    uprintf("%d:", i);
-    uprintf(" "BYTE_TO_BINARY_PATTERN" "BYTE_TO_BINARY_PATTERN"\n",
+    dprintf("%d:", i);
+    dprintf(" "BYTE_TO_BINARY_PATTERN" "BYTE_TO_BINARY_PATTERN"\n",
     BYTE_TO_BINARY(disp->buf[i] >> 8), BYTE_TO_BINARY(disp->buf[i] & 0xFF));
   }
 }

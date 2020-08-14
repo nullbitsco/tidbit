@@ -10,7 +10,7 @@
 #define PRODUCT_ID      0x6061
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    nullbits
-#define PRODUCT         tidbit
+#define PRODUCT         TIDBIT
 #define DESCRIPTION     QMK keyboard firmware
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -30,8 +30,8 @@
 #define RGBLIGHT_ANIMATIONS
 
 /* Optional encoder pins */
-#define ENCODERS_PAD_A { B4, B3 }
-#define ENCODERS_PAD_B { B5, B2 }
+#define ENCODERS_PAD_A { B4, B2 }
+#define ENCODERS_PAD_B { B5, B3 }
 
 /* Additional optional encoder pins */
 // #define ENCODERS_PAD_A { D1, D0 } //Can only be used if I2C is not used

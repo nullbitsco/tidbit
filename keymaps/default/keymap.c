@@ -20,7 +20,7 @@
 
 #define ____ _______
 #define _BASE     0
-#define _FUNC      1
+#define _FUNC     1
 
 
 enum custom_keycodes {
@@ -30,17 +30,17 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Base layer (numpad)
   [_BASE] = LAYOUT(
-    LT(_FUNC, KC_PSLS), KC_PAST, KC_PMNS, 
-    KC_P7, KC_P8, KC_P9,   KC_PPLS,
-    KC_P4, KC_P5, KC_P6,   _______, //not used with 2U +
-    KC_P1, KC_P2, KC_P3,   KC_PENT,
-    KC_P0, ____,  KC_DOT,  _______  //not used with 2U ENT
+  MO(_FUNC),   KC_TRNS, KC_TRNS, \
+  KC_7, KC_8,     KC_9, KC_PSLS, \
+  KC_4, KC_5,     KC_6, KC_PAST, \
+  KC_1, KC_2,     KC_3, KC_PMNS, \
+  KC_0, KC_DOT, KC_ENT, KC_PPLS  \
   ),
 
   // Function layer (numpad)
   [_FUNC] = LAYOUT(
              ____, RGB_TOG, ____,
-    KC_NLCK, ____, RGB_MOD, ____,
+    _______, ____, RGB_MOD, ____,
     _______, ____, RGB_HUI, ____,
     _______, ____, RGB_SAI, ____,
     PROG,    ____, RGB_VAI, ____ 
