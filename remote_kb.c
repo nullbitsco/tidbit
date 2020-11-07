@@ -1,5 +1,7 @@
 #include "remote_kb.h"
 
+//todo: remove master/slave
+
 uint8_t
  msg[UART_MSG_LEN],
  msg_idx = 0;
@@ -86,6 +88,8 @@ void matrix_init_remote_kb(void) {
   uart_init(SERIAL_UART_BAUD);
   is_master = vbus_detect();
 }
+
+//todo: unify with send/recv functions
 
 void process_record_remote_kb(uint16_t keycode, keyrecord_t *record) {
   #if defined (KEYBOARD_MASTER)

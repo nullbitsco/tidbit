@@ -30,8 +30,8 @@
 #define RGBLIGHT_ANIMATIONS
 
 /* Optional encoder pins */
-#define ENCODERS_PAD_A { B4, B2 }
-#define ENCODERS_PAD_B { B5, B3 }
+#define ENCODERS_PAD_A { B5, B3 }
+#define ENCODERS_PAD_B { B4, B2 }
 
 /* Additional optional encoder pins */
 // #define ENCODERS_PAD_A { D1, D0 } //Can only be used if I2C is not used
