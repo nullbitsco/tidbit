@@ -96,5 +96,5 @@ void led_set_kb(uint8_t usb_led) {
   if (usb_led & (1<<USB_LED_NUM_LOCK))
     set_bitc_LED(LED_ON);
   else
-    set_bitc_LED(LED_OFF);
+    set_bitc_LED(LED_DIM);
 }

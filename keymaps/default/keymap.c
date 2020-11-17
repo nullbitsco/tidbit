@@ -104,7 +104,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 void led_set_kb(uint8_t usb_led) {
   if (usb_led & (1<<USB_LED_NUM_LOCK))
-    set_bitc_LED(LED_ON);
+    set_bitc_LED(LED_DIM);
   else
     set_bitc_LED(LED_OFF);
 }
