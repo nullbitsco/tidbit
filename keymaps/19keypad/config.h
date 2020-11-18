@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#define TAPPING_TERM 200
 
-#define ENCODERS_PAD_A { B2 }
-#define ENCODERS_PAD_B { B3 }
+#define ENCODERS_PAD_A { D3 }
+#define ENCODERS_PAD_B { D2 }
