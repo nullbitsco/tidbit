@@ -29,10 +29,6 @@
 #define RGBLED_NUM 8
 #define RGBLIGHT_ANIMATIONS
 
-/* Optional encoder pins */
-#define ENCODERS_PAD_A { B5, B3 }
-#define ENCODERS_PAD_B { B4, B2 }
-
 /* Additional optional encoder pins */
 // #define ENCODERS_PAD_A { D1, D0 } //Can only be used if I2C is not used
 // #define ENCODERS_PAD_B { D3, D2 } //Can only be used if serial (exp) is not used
