@@ -1,9 +1,6 @@
 # MCU name
 MCU = atmega32u4
 
-# Interrupt driven control endpoint task(+60)
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
-
 # Bootloader selection
 #   Teensy       halfkay
 #   Pro Micro    caterina
@@ -36,4 +33,5 @@ LTO_ENABLE = yes            # Link-time optimization
 SRC += i2c_master.c
 SRC += bitc_led.c
 SRC += remote_kb.c
-SRC += tmk_core/common/uart.c
+
+QUANTUM_LIB_SRC += uart.c
