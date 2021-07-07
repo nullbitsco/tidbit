@@ -16,5 +16,6 @@
 
 #define TAPPING_TERM 200
 
+// Encoders are defined in order. 1: B2 & B3, 2: B4 & B5, 3: D0 & D1, 4: D2 & D3
 #define ENCODERS_PAD_A { D3 }
 #define ENCODERS_PAD_B { D2 }
