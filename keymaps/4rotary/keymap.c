@@ -87,7 +87,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   /* With an if statement we can check which encoder was turned. */
   if (index == 0) { /* First encoder */
     if (clockwise) {
@@ -114,6 +114,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
       tap_code(KC_VOLD);
     }  
   }
+  return true;
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
