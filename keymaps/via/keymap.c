@@ -71,12 +71,13 @@ void matrix_scan_user(void) {
   matrix_scan_remote_kb();
 }
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   if (clockwise) {
     tap_code(KC_VOLU);
   } else {
     tap_code(KC_VOLD);
-  }  
+  } 
+  return true;
 }
 
 void led_set_kb(uint8_t usb_led) {
