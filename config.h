@@ -30,5 +30,21 @@
 #define RGBLIGHT_ANIMATIONS
 
 /* Additional optional encoder pins */
-// #define ENCODERS_PAD_A { D1, D0 } //Can only be used if I2C is not used
-// #define ENCODERS_PAD_B { D3, D2 } //Can only be used if serial (exp) is not used
+
+// You can mix/match pins within the ENCODERS_PAD_A and ENCODERS_PAD_B defines.
+
+// Encoder 1 Pins:
+// #define ENCODERS_PAD_A { B2 }
+// #define ENCODERS_PAD_B { B3 }
+
+// Encoder 2 Pins:
+// #define ENCODERS_PAD_A { B4 }
+// #define ENCODERS_PAD_B { B5 }
+
+// Encoder 3 Pins: ⚠️ Compatibility note: encoder 3 shares the drive signals with the I2C bus. It can not be used at the same time as the OLED, alphanumeric display, or LED matrix options.
+// #define ENCODERS_PAD_A { D0 }
+// #define ENCODERS_PAD_B { D1 }
+
+// Encoder 4 Pins: ⚠️ Compatibility note: encoder 4 shares the drive signals with the UART bus. It can not be used at the same time as the expansion port.
+// #define ENCODERS_PAD_A { D2 }
+// #define ENCODERS_PAD_B { D3 }
