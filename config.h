@@ -34,8 +34,8 @@
 // You can mix/match pins within the ENCODERS_PAD_A and ENCODERS_PAD_B defines.
 
 // Encoder 1 Pins:
-// #define ENCODERS_PAD_A { B2 }
-// #define ENCODERS_PAD_B { B3 }
+// #define ENCODERS_PAD_A { B3 }
+// #define ENCODERS_PAD_B { B2 }
 
 // Encoder 2 Pins:
 // #define ENCODERS_PAD_A { B4 }

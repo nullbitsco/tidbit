@@ -16,5 +16,5 @@
 
 #define TAPPING_TERM 200
 
-#define ENCODERS_PAD_A { B2 }
-#define ENCODERS_PAD_B { B3 }
+#define ENCODERS_PAD_A { B3 }
+#define ENCODERS_PAD_B { B2 }
