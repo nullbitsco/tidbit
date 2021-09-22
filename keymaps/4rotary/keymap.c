@@ -22,6 +22,8 @@
 #define _BASE     0
 #define _FUNC     1
 
+bool numlock_set = false;
+
 enum custom_keycodes {
   PROG = SAFE_RANGE,
 };
@@ -55,8 +57,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_NO, RGB_TOG, KC_NO,
     KC_NO, KC_NO, RGB_MOD, KC_NO,
     KC_NO, KC_NO, RGB_HUI, KC_NO,
-    KC_NO, KC_NO, RGB_SAI, KC_NO,
-    PROG,  KC_NO, RGB_VAI, TO(_BASE)
+    KC_NO, KC_NO, RGB_SAI, TO(_BASE),
+    PROG,  KC_NO, RGB_VAI, KC_NO
   ),
 };
 
@@ -71,6 +73,17 @@ void matrix_scan_user(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   process_record_remote_kb(keycode, record);
+
+  // Get the current NLCK status & set if not set.
+  // Only do this once, in case user has a NLCK key
+  // and wants to disable it later on.
+  if (!numlock_set && record->event.pressed) {
+    led_t led_state = host_keyboard_led_state();
+    if (!led_state.num_lock) {
+      register_code(KC_NLCK);
+    }
+    numlock_set = true;
+  }
 
   switch(keycode) {
     case PROG:
@@ -115,18 +128,6 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     }  
   }
   return true;
-}
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (get_highest_layer(state)) {
-    case _FUNC:
-        unregister_code(KC_NLCK);
-        break;
-    default: //  for any other layers, or the default layer
-        register_code(KC_NLCK);
-        break;
-    }
-  return state;
 }
 
 void led_set_kb(uint8_t usb_led) {
