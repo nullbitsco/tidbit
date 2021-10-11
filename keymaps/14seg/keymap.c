@@ -39,35 +39,35 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Base layer (numpad)
   [_BASE] = LAYOUT(
-             KC_F1, KC_F2, KC_F3, \
-    KC_PSLS, KC_7,  KC_8,  KC_9, \
-    KC_PAST, KC_4,  KC_5,  KC_6, \
-    KC_PMNS, KC_1,  KC_2,  KC_3, \
-    KC_PPLS, KC_0,  KC_DOT, NAV_ENT  \
+             KC_F1, KC_F2, KC_F3, 
+    KC_PSLS, KC_7,  KC_8,  KC_9, 
+    KC_PAST, KC_4,  KC_5,  KC_6, 
+    KC_PMNS, KC_1,  KC_2,  KC_3, 
+    KC_PPLS, KC_0,  KC_DOT, NAV_ENT  
   ),
   // Navigation layer (nav + media)
   [_NAV] = LAYOUT(
-               _______, _______, _______, \
-    PROG,      KC_MPRV, KC_MPLY, KC_MNXT, \
-    TO(_LED),  KC_VOLD, KC_MUTE, KC_VOLU, \
-    TO(_ALT),  RM_1,       RM_2,    RM_3, \
-    TO(_BASE), _______,   DEBUG, _______  \
+               _______, _______, _______, 
+    PROG,      KC_MPRV, KC_MPLY, KC_MNXT, 
+    TO(_LED),  KC_VOLD, KC_MUTE, KC_VOLU, 
+    TO(_ALT),  RM_1,       RM_2,    RM_3, 
+    TO(_BASE), _______,   DEBUG, _______  
   ),
   // LED settings layer
   [_LED] = LAYOUT(
-             _______, _______, _______, \
-    RGB_TOG, RGB_VAI, RGB_SAI, RGB_HUI, \
-    _______, RGB_VAD, RGB_SAD, RGB_HUD, \
-    _______, _______, RGB_MOD, _______, \
-    _______, _______, RGB_RMOD, MO(_NAV)  \
+             _______, _______, _______, 
+    RGB_TOG, RGB_VAI, RGB_SAI, RGB_HUI, 
+    _______, RGB_VAD, RGB_SAD, RGB_HUD, 
+    _______, _______, RGB_MOD, _______, 
+    _______, _______, RGB_RMOD, MO(_NAV)  
   ),
   // Altium settings layer
   [_ALT] = LAYOUT(
-          ____, ____, ____, \
-    ____, ____, ____, ____, \
-    ____, ____, ____, ____, \
-    ____, ____, ____, ____, \
-    ____, ____, ____, MO(_NAV)  \
+          ____, ____, ____, 
+    ____, ____, ____, ____, 
+    ____, ____, ____, ____, 
+    ____, ____, ____, ____, 
+    ____, ____, ____, MO(_NAV)  
   ),
 };
 

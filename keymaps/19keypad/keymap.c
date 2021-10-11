@@ -26,11 +26,23 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    // Base layer (numpad)
-    [_BASE] = LAYOUT(TO(_FUNC), KC_NLCK, KC_KP_SLASH, KC_KP_7, KC_KP_8, KC_KP_9, KC_KP_ASTERISK, KC_KP_4, KC_KP_5, KC_KP_6, KC_KP_MINUS, KC_KP_1, KC_KP_2, KC_KP_3, KC_KP_PLUS, KC_NO, KC_KP_0, KC_KP_DOT, KC_KP_ENTER),
+  // Base layer (numpad)
+  [_BASE] = LAYOUT(
+           TO(_FUNC), KC_NLCK,   KC_KP_SLASH, 
+  KC_KP_7, KC_KP_8,   KC_KP_9,   KC_KP_ASTERISK, 
+  KC_KP_4, KC_KP_5,   KC_KP_6,   KC_KP_MINUS, 
+  KC_KP_1, KC_KP_2,   KC_KP_3,   KC_KP_PLUS, 
+  KC_NO,   KC_KP_0,   KC_KP_DOT, KC_KP_ENTER  
+  ),
 
-    // Function layer (numpad)
-    [_FUNC] = LAYOUT(TO(_BASE), PROG, KC_NO, KC_NO, KC_NO, RGB_MOD, KC_NO, KC_NO, KC_NO, RGB_HUI, KC_NO, KC_NO, KC_NO, RGB_SAI, KC_NO, KC_NO, KC_NO, RGB_VAI, KC_NO),
+  // Function layer (numpad)
+  [_FUNC] = LAYOUT(
+             TO(_BASE), PROG,    KC_NO,
+    KC_NO,   KC_NO,     RGB_MOD, KC_NO,
+    KC_NO,   KC_NO,     RGB_HUI, KC_NO,
+    KC_NO,   KC_NO,     RGB_SAI, KC_NO,
+    KC_NO,   KC_NO,     RGB_VAI, KC_NO
+  ),
 };
 
 void matrix_init_user(void) {
@@ -38,7 +50,9 @@ void matrix_init_user(void) {
     register_code(KC_NLCK);
 }
 
-void matrix_scan_user(void) { matrix_scan_remote_kb(); }
+void matrix_scan_user(void) { 
+    matrix_scan_remote_kb(); 
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     process_record_remote_kb(keycode, record);
