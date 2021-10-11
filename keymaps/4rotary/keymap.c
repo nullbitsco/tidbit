@@ -26,7 +26,9 @@ enum custom_keycodes {
     PROG = SAFE_RANGE,
 };
 
-enum td_keycodes { TD_ENTER_LAYER };
+enum td_keycodes {
+    TD_ENTER_LAYER
+};
 
 // Tap Dance definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
@@ -41,9 +43,21 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     o x x x
  */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_BASE] = LAYOUT(KC_ASTR, KC_SLSH, TD(TD_ENTER_LAYER), RGB_TOG, KC_9, KC_6, KC_3, KC_HOME, KC_8, KC_5, KC_2, KC_MPLY, KC_7, KC_4, KC_1, KC_MUTE, KC_PLUS, KC_MINS, KC_0),
-    // Function layer (numpad)
-    [_FUNC] = LAYOUT(KC_NO, RGB_TOG, KC_NO, KC_NO, KC_NO, RGB_MOD, KC_NO, KC_NO, KC_NO, RGB_HUI, KC_NO, KC_NO, KC_NO, RGB_SAI, TO(_BASE), PROG, KC_NO, RGB_VAI, KC_NO),
+  [_BASE] = LAYOUT(
+           KC_ASTR, KC_SLSH, TD(TD_ENTER_LAYER), 
+  RGB_TOG, KC_9, KC_6, KC_3, 
+  KC_HOME, KC_8, KC_5, KC_2, 
+  KC_MPLY, KC_7, KC_4, KC_1, 
+  KC_MUTE, KC_PLUS, KC_MINS, KC_0 
+  ),
+  // Function layer (numpad)
+  [_FUNC] = LAYOUT(
+           KC_NO, RGB_TOG, KC_NO,
+    KC_NO, KC_NO, RGB_MOD, KC_NO,
+    KC_NO, KC_NO, RGB_HUI, KC_NO,
+    KC_NO, KC_NO, RGB_SAI, TO(_BASE),
+    PROG,  KC_NO, RGB_VAI, KC_NO
+  ),
 };
 
 void matrix_init_user(void) {
@@ -51,7 +65,9 @@ void matrix_init_user(void) {
     register_code(KC_NLCK);
 }
 
-void matrix_scan_user(void) { matrix_scan_remote_kb(); }
+void matrix_scan_user(void) {
+    matrix_scan_remote_kb();
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     process_record_remote_kb(keycode, record);
