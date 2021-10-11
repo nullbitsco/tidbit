@@ -1,4 +1,4 @@
-/* Copyright 2020 Jay Greco
+/* Copyright 2021 Jay Greco
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,8 +15,6 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "remote_kb.h"
-#include "bitc_led.h"
 
 #define _BASE     0
 #define _VIA1     1
@@ -78,11 +76,4 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     tap_code(KC_VOLD);
   } 
   return true;
-}
-
-void led_set_kb(uint8_t usb_led) {
-  if (usb_led & (1<<USB_LED_NUM_LOCK))
-    set_bitc_LED(LED_DIM);
-  else
-    set_bitc_LED(LED_OFF);
 }

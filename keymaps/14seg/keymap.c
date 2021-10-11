@@ -1,4 +1,4 @@
-/* Copyright 2020 Jay Greco
+/* Copyright 2021 Jay Greco
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,8 +16,6 @@
 
 #include QMK_KEYBOARD_H
 #include "14seg_animation.h"
-#include "remote_kb.h"
-#include "bitc_led.h"
 
 #define ____ _______
 #define _BASE     0
@@ -124,8 +122,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (nav_press_active) {
           nav_press_active = false;
           SEND_STRING(SS_TAP(X_PENT));
-          send_msg(KC_PENT, true);
-          send_msg(KC_PENT, false);
         }
         else {
           nav_press_active = false;

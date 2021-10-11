@@ -30,8 +30,7 @@ FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 ENCODER_ENABLE = yes        # Use rotary encoder
 LTO_ENABLE = yes            # Link-time optimization
 
-SRC += i2c_master.c
-SRC += bitc_led.c
-SRC += remote_kb.c
-
+SRC += i2c_master.c \
+    common/bitc_led.c \
+    common/remote_kb.c
 QUANTUM_LIB_SRC += uart.c
