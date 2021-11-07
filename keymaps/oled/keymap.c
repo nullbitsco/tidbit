@@ -17,8 +17,12 @@
 #include QMK_KEYBOARD_H
 #include "action_layer.h"
 
-#define _BASE 0
-#define _FUNC 1
+enum layer_names {
+  _BASE,
+  _FUNC,
+  _EXT1,
+  _EXT2
+};
 
 bool numlock_set = false;
 
@@ -42,16 +46,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_PSLS,  KC_KP_ASTERISK, KC_KP_MINUS, 
   KC_KP_7, KC_KP_8,  KC_KP_9,        KC_KP_PLUS, 
   KC_KP_4, KC_KP_5,  KC_KP_6,        KC_NO, 
-  KC_KP_1, KC_KP_2,  KC_KP_3,        TD(TD_ENTER_LAYER), 
+  KC_KP_1, KC_KP_2,  KC_KP_3,        KC_PENT, 
   KC_KP_0, KC_KP_0,  KC_KP_DOT,      KC_NO 
   ),
   // Function layer (numpad)
   [_FUNC] = LAYOUT(
-           KC_NO, RGB_TOG, KC_NO,
-    KC_NO, KC_NO, RGB_MOD, KC_NO,
-    KC_NO, KC_NO, RGB_HUI, KC_NO,
-    KC_NO, KC_NO, RGB_SAI, TO(_BASE),
-    PROG,  KC_NO, RGB_VAI, KC_NO
+           KC_NO, KC_NO, KC_NO,
+    KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_NO, KC_NO, KC_NO, KC_NO
+  ),
+  [_EXT1] = LAYOUT(
+           KC_NO, KC_NO, KC_NO,
+    KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_NO, KC_NO, KC_NO, KC_NO
+  ),
+  [_EXT2] = LAYOUT(
+           KC_NO, KC_NO, KC_NO,
+    KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_NO, KC_NO, KC_NO, KC_NO,
+    KC_NO, KC_NO, KC_NO, KC_NO
   ),
 };
 
