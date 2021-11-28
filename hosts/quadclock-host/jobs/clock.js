@@ -56,6 +56,7 @@ if (!device) {
   console.log('Device not found.');
   if (parentPort) parentPort.postMessage('done');
   else process.exit(0);
+  return;
 }
 
 console.log('Device found.');

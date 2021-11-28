@@ -1,5 +1,5 @@
 {
-  "name": "quadclock-host",
+  "name": "tidbit-quadclock-host",
   "version": "1.0.0",
   "description": "Quad alphanameric display clock host",
   "main": "index.js",
