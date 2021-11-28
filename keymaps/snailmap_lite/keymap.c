@@ -259,7 +259,7 @@ static void render_wpm_graph(uint8_t current_wpm) {
 }
 
 // Call OLED functions
-void oled_task_user(void) {
+bool oled_task_user(void) {
     // Draw OLED keyboard, prevent redraw
     if (oled_data.first_loop) {
         render_background();
@@ -286,6 +286,7 @@ void oled_task_user(void) {
         render_wpm_graph(current_wpm);
         oled_data.timer = timer_read();
     }
+    return true;
 }
 #endif
 
