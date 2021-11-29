@@ -82,12 +82,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_270; }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
   status_render_wpm(0, 0);
   status_render_layer(0, 3);
   status_render_caps_lock(0, 7);
 
   pet_render(0, 13);
+
+  return true;
 }
 #endif
 
