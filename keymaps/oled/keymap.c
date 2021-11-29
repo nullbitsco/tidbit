@@ -116,7 +116,10 @@ static void render_logo(void) {
 };
 
 
-void oled_task_user(void) { render_logo(); }
+bool oled_task_user(void) { 
+    render_logo();
+    return true;
+}
 #endif
 
 void matrix_init_user(void) { matrix_init_remote_kb(); }
