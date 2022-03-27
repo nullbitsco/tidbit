@@ -14,8 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "clock.h"
 #include QMK_KEYBOARD_H
+#include "clock.h"
 #include "time.h"
 #include <string.h>
 

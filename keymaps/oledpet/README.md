@@ -15,12 +15,8 @@ Your pet will respond to your WPM or keypresses:
 - **Sit:** _WPM <10_
 - **Walk:** _WPM >=10 and <=40_
 - **Run:** _WPM >40_
-- **Bark:** _Caps Lock On_
-- **Sneak:** _Ctrl Pressed_
-- **Jump:** _Spacebar Pressed_
 
 ### Statuses
 
 - WPM Counter
 - Top Layer
-- Caps Lock Indicator

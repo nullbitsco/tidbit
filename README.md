@@ -1,15 +1,9 @@
-# TIDBIT
+# TIDBIT-Extras
 
-![TIDBIT](https://nullbits.co/static/img/tidbit1.jpg)
+NOTE: These are extra community-supplied keymaps that weren't easily added to the QMK firmware repo when the TIDBIT was added, because of special features or otherwise.
 
-A very moddable 19-key numpad kit built by nullbits. [More info at nullbits.co](https://nullbits.co/tidbit/)
+The main TIDBIT firmware is in the [QMK repo](https://github.com/qmk/qmk_firmware/tree/master/keyboards/nullbitsco/tidbit). You'll need that first.
 
-* Keyboard Maintainer: [Jay Greco](https://github.com/jaygreco)
-* Hardware Supported: NIBBLE Rev1, [Bit-C](https://nullbits.co/bit-c/) Pro Micro with USB-C.
-* Hardware Availability: [nullbits.co](https://nullbits.co/)
+## How to use
 
-Make example for this keyboard (after setting up your build environment):
-
-    make nullbitsco/tidbit:default
-
-See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+Download and copy everything into this repo into your existing `qmk_firmware/keyboards/nullbitsco/tidbit` folder. Then `qmk compile -kb nullbitsco/tidbit -km all`. You can also clone this as a git submodule into the tidbit folder if you wish.
