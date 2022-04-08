@@ -4,5 +4,4 @@ OLED_DRIVER = SSD1306
 WPM_ENABLE = yes
 
 # Build options
-SRC += bongo.c \
-	   status.c
+SRC += status.c

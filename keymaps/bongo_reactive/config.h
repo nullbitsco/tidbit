@@ -20,5 +20,7 @@
 #define ENCODERS_PAD_B { B2 }
 
 // Increased OLED timeout but decreased brightness to prevent OLED Burn-in
-#define OLED_TIMEOUT 120000
-#define OLED_BRIGHTNESS 120
+#define OLED_BRIGHTNESS 128
+#define OLED_TIMEOUT 30000
+// #define OLED_UPDATE_INTERVAL 250
+#define OLED_FADE_OUT

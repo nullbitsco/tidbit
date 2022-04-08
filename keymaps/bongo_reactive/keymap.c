@@ -14,11 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include QMK_KEYBOARD_H
 #ifdef OLED_ENABLE
   #include "bongo.h"
   #include "status.h"
 #endif
-#include QMK_KEYBOARD_H
 
 #define _BASE     0
 #define _VIA1     1
