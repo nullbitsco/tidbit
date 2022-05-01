@@ -17,24 +17,21 @@
 #include "status.h"
 #include QMK_KEYBOARD_H
 
-#define _BASE     0
-#define _VIA1     1
-#define _VIA2     2
-#define _VIA3     3
+enum layers {
+    _BASE = 0,
+    _VIA1,
+    _VIA2,
+    _VIA3
+};
 
 void status_render_wpm(uint8_t x, uint8_t y) {
-  uint8_t n = get_current_wpm();
-  char wpm[4];
-  wpm[3] = '\0';
-  wpm[2] = '0' + n % 10;
-  wpm[1] = '0' + (n /= 10) % 10;
-  wpm[0] = '0' + n / 10;
+  uint8_t current_wpm = get_current_wpm();
 
   oled_set_cursor(x, y);
   oled_write("WPM", true);
 
   oled_set_cursor(x, y + 1);
-  oled_write(wpm, false);
+  oled_write(get_u8_str(current_wpm, '0'), false);
 }
 
 void status_render_layer(uint8_t x, uint8_t y) {
@@ -57,16 +54,5 @@ void status_render_layer(uint8_t x, uint8_t y) {
       break;
     default:
       oled_write("Undef", false);
-  }
-}
-
-void status_render_caps_lock(uint8_t x, uint8_t y) {
-  led_t led_usb_state = host_keyboard_led_state();
-
-  oled_set_cursor(x, y);
-  if (led_usb_state.caps_lock) {
-    oled_write("CPSLK", true);
-  } else {
-    oled_write("     ", false);
   }
 }

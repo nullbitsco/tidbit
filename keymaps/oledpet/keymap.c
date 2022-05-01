@@ -23,90 +23,66 @@
  * Statuses:
  * - WPM Counter
  * - Top Layer
- * - Caps Lock Indicator
  *
  * Pet Features:
  * - WPM <10: Sit
  * - WPM >=10 and <=40: Walk
  * - WPM >40: Run
- * - Caps Lock: Bark
- * - Ctrl: Sneak
- * - Space: Jump
  */
 
-#ifdef OLED_ENABLE
-  #include "pet.h"
-  #include "status.h"
-#endif
+#include "pet.h"
+#include "status.h"
 #include QMK_KEYBOARD_H
 
-#define _BASE     0
-#define _VIA1     1
-#define _VIA2     2
-#define _VIA3     3
+enum layers {
+    _BASE = 0,
+    _VIA1,
+    _VIA2,
+    _VIA3
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT(
-        KC_F1,   KC_F2, KC_F3,
-  KC_7, KC_8,     KC_9, KC_PSLS,
-  KC_4, KC_5,     KC_6, KC_PAST,
-  KC_1, KC_2,     KC_3, KC_PMNS,
-  KC_0, KC_DOT, KC_ENT, KC_PPLS
+                          KC_PSLS, KC_PAST,  KC_PMNS, 
+  KC_VOLD, KC_VOLU, KC_P7, KC_P8,   KC_P9,   KC_PPLS, 
+  KC_TRNS, KC_TRNS, KC_P4, KC_P5,   KC_P6,   KC_PPLS, 
+  KC_TRNS, KC_TRNS, KC_P1, KC_P2,   KC_P3,   KC_PENT, 
+  KC_TRNS, KC_TRNS, KC_P0, KC_P0,   KC_PDOT, KC_PENT  
   ),
 
   [_VIA1] = LAYOUT(
-           KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+                 ___, ___, ___, 
+  ___, ___, ___, ___, ___, ___, 
+  ___, ___, ___, ___, ___, ___, 
+  ___, ___, ___, ___, ___, ___, 
+  ___, ___, ___, ___, ___, ___  
   ),
 
   [_VIA2] = LAYOUT(
-           KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+                 ___, ___, ___, 
+  ___, ___, ___, ___, ___, ___, 
+  ___, ___, ___, ___, ___, ___, 
+  ___, ___, ___, ___, ___, ___, 
+  ___, ___, ___, ___, ___, ___
   ),
 
   [_VIA3] = LAYOUT(
-           KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+                 ___, ___, ___, 
+  ___, ___, ___, ___, ___, ___, 
+  ___, ___, ___, ___, ___, ___, 
+  ___, ___, ___, ___, ___, ___, 
+  ___, ___, ___, ___, ___, ___
   ),
 };
 
-#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_270; }
 
 bool oled_task_user(void) {
   status_render_wpm(0, 0);
   status_render_layer(0, 3);
-  status_render_caps_lock(0, 7);
-
   pet_render(0, 13);
 
-  return true;
-}
-#endif
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  process_record_remote_kb(keycode, record);
-  pet_process_record(keycode, record);
-
-  return true;
-}
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-  if (clockwise) {
-    tap_code(KC_VOLU);
-  } else {
-    tap_code(KC_VOLD);
-  }
-  return true;
+  return false;
 }
 
 bool wpm_keycode_user(uint16_t keycode) {
@@ -119,8 +95,7 @@ bool wpm_keycode_user(uint16_t keycode) {
   }
 
   // Include keys in WPM calculation
-  if ((keycode >= KC_A && keycode <= KC_0) || // Alphas - Numbers
-      (keycode >= KC_TAB && keycode <= KC_SLASH) || // Tab - Slash (Symbols, Punctuation, Space)
+  if ((keycode >= KC_TAB && keycode <= KC_SLASH) || // Tab - Slash (Symbols, Punctuation, Space)
       (keycode >= KC_KP_1 && keycode <= KC_KP_DOT) ||  // Keypad numbers - Keypad Dot
       (keycode >= KC_F1 && keycode <= KC_F12)) { // F1 - F12
     return true;

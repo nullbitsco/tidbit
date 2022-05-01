@@ -17,5 +17,3 @@
 #include QMK_KEYBOARD_H
 
 void pet_render(uint8_t x, uint8_t y);
-
-void pet_process_record(uint16_t keycode, keyrecord_t *record);

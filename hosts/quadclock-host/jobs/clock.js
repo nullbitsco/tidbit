@@ -3,7 +3,7 @@ const format = require('date-fns/format');
 const { parentPort } = require('worker_threads');
 
 const VENDOR_ID = 0x6e61;
-const PRODUCT_ID = 0x6061;
+const PRODUCT_ID = 0x6064;
 const USAGE_PAGE = 0xff60;
 const USAGE_ID = 0x61;
 
@@ -56,7 +56,6 @@ if (!device) {
   console.log('Device not found.');
   if (parentPort) parentPort.postMessage('done');
   else process.exit(0);
-  return;
 }
 
 console.log('Device found.');
