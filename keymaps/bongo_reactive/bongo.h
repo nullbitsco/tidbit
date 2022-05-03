@@ -35,14 +35,12 @@ enum anim_states
 static uint8_t anim_state = Idle;
 static uint8_t anim_duration = _IDLE_FRAME_DURATION;
 static uint32_t anim_timer = 0;
-static uint32_t anim_sleep = 0;
+uint16_t oled_timer;
 
 static uint8_t idle_frame = 0;
 static uint8_t tap_frame = 0;
 
 static uint32_t prep_timer = 0;
-
-static int wpm = 0;
 
 // Decompress and write a precompressed bitmap frame to the OLED.
 // Documentation and python compression script available at:
@@ -100,8 +98,6 @@ static void animate(uint8_t x, uint8_t y) {
 }
 
 void bongo_render(uint8_t x, uint8_t y) {
-  wpm = get_current_wpm();
-
   if (timer_elapsed32(anim_timer) > anim_duration) {
     anim_timer = timer_read32();
     animate(x, y);
@@ -112,12 +108,9 @@ void bongo_render(uint8_t x, uint8_t y) {
     anim_duration = _IDLE_FRAME_DURATION;
   }
 
-  // This fixes the screen on and off bug?
-  if (wpm > 0) {
-    oled_on();
-    anim_sleep = timer_read32();
-  } else if (timer_elapsed32(anim_sleep) > OLED_TIMEOUT) {
+  if (timer_elapsed(oled_timer) > OLED_TIMEOUT) {
     oled_off();
+    return;
   }
 }
 
@@ -125,6 +118,7 @@ void bongo_process_record(keyrecord_t *record) {
   if (record->event.pressed) {
     anim_state = Tap;
     anim_duration = _TAP_FRAME_DURATION;
+    oled_timer = timer_read();
   } else {
     if (anim_state == Tap) {
       anim_state = Prep;

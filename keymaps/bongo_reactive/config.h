@@ -14,13 +14,4 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-// Encoders are defined in order. 1: B2 & B3, 2: B4 & B5, 3: D0 & D1, 4: D2 & D3
-#define ENCODERS_PAD_A { B3 }
-#define ENCODERS_PAD_B { B2 }
-
-// Increased OLED timeout but decreased brightness to prevent OLED Burn-in
-#define OLED_BRIGHTNESS 128
 #define OLED_TIMEOUT 30000
-// #define OLED_UPDATE_INTERVAL 250
-#define OLED_FADE_OUT

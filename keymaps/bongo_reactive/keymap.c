@@ -15,78 +15,62 @@
  */
 
 #include QMK_KEYBOARD_H
-#ifdef OLED_ENABLE
-  #include "bongo.h"
-  #include "status.h"
-#endif
+#include "bongo.h"
+#include "status.h"
 
-#define _BASE     0
-#define _VIA1     1
-#define _VIA2     2
-#define _VIA3     3
+enum layers {
+    _BASE = 0,
+    _VIA1,
+    _VIA2,
+    _VIA3
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT(
-        KC_F1,   KC_F2, KC_F3,
-  KC_7, KC_8,     KC_9, KC_PSLS,
-  KC_4, KC_5,     KC_6, KC_PAST,
-  KC_1, KC_2,     KC_3, KC_PMNS,
-  KC_0, KC_DOT, KC_ENT, KC_PPLS
+                           KC_PSLS, KC_PAST, KC_PMNS, 
+  KC_VOLD, KC_VOLU, KC_P7, KC_P8,   KC_P9,   KC_PPLS, 
+  KC_TRNS, KC_TRNS, KC_P4, KC_P5,   KC_P6,   KC_PPLS, 
+  KC_TRNS, KC_TRNS, KC_P1, KC_P2,   KC_P3,   KC_PENT, 
+  KC_TRNS, KC_TRNS, KC_P0, KC_P0,   KC_PDOT, KC_PENT  
   ),
 
   [_VIA1] = LAYOUT(
-           KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+                 ___, ___, ___, 
+  ___, ___, ___, ___, ___, ___, 
+  ___, ___, ___, ___, ___, ___, 
+  ___, ___, ___, ___, ___, ___, 
+  ___, ___, ___, ___, ___, ___  
   ),
 
   [_VIA2] = LAYOUT(
-           KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+                 ___, ___, ___, 
+  ___, ___, ___, ___, ___, ___, 
+  ___, ___, ___, ___, ___, ___, 
+  ___, ___, ___, ___, ___, ___, 
+  ___, ___, ___, ___, ___, ___
   ),
 
   [_VIA3] = LAYOUT(
-           KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+                 ___, ___, ___, 
+  ___, ___, ___, ___, ___, ___, 
+  ___, ___, ___, ___, ___, ___, 
+  ___, ___, ___, ___, ___, ___, 
+  ___, ___, ___, ___, ___, ___
   ),
 };
 
-#ifdef OLED_ENABLE
 bool oled_task_user(void) {
   bongo_render(0, 0);
 
-  status_render_wpm(0, 0);
+  oled_write("TIDBIT", false);
   status_render_layer(0, 1);
   status_render_caps_lock(0, 2);
 
-  return true;
+  return false;
 }
-#endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  process_record_remote_kb(keycode, record);
   bongo_process_record(record);
 
-  return true;
-}
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-  if (clockwise) {
-    tap_code(KC_VOLU);
-  } else {
-    tap_code(KC_VOLD);
-  }
-  return true;
-}
-
-bool wpm_keycode_user(uint16_t keycode) {
   return true;
 }

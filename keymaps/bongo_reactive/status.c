@@ -22,21 +22,6 @@
 #define _VIA2     2
 #define _VIA3     3
 
-void status_render_wpm(uint8_t x, uint8_t y) {
-  uint8_t n = get_current_wpm();
-  char wpm[4];
-  wpm[3] = '\0';
-  wpm[2] = '0' + n % 10;
-  wpm[1] = '0' + (n /= 10) % 10;
-  wpm[0] = '0' + n / 10;
-
-  oled_set_cursor(x, y);
-  oled_write("WPM:", false);
-
-  oled_set_cursor(x + 4, y);
-  oled_write(wpm, false);
-}
-
 void status_render_layer(uint8_t x, uint8_t y) {
   oled_set_cursor(x, y);
   switch (get_highest_layer(layer_state)) {
