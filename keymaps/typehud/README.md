@@ -2,7 +2,7 @@
 
 VIA compatible keymap that displays a live wpm HUD on your OLED.
 
-![typehud_preview](https://user-images.githubusercontent.com/2514771/166553352-7ce23eca-57a5-40fc-af41-73363eec2f40.mp4)
+<https://user-images.githubusercontent.com/2514771/166553352-7ce23eca-57a5-40fc-af41-73363eec2f40.mp4>
 
 ## Configuration
 
