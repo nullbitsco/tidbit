@@ -17,16 +17,38 @@
 #include QMK_KEYBOARD_H
 
 // clang-format off
-#define _OLED_WIDTH         127
-#define _OLED_HEIGHT        31
+#define _OLED_WIDTH         (OLED_DISPLAY_WIDTH - 1)
+#define _OLED_HEIGHT        (OLED_DISPLAY_HEIGHT - 1)
+
+#ifdef SPLIT_KEYBOARD
+#define _PHYSICAL_PARTS 2
+#else
+#define _PHYSICAL_PARTS 1
+#endif
+
+#ifdef TYPEHUD_MATRIX_ROWS
+#define _NML_MATRIX_ROWS TYPEHUD_MATRIX_ROWS
+#else
+#    ifdef SPLIT_KEYBOARD
+#define _NML_MATRIX_ROWS (MATRIX_ROWS / 2)
+#    else
+#define _NML_MATRIX_ROWS MATRIX_ROWS
+#    endif
+#endif
+
+#ifdef TYPEHUD_MATRIX_COLS
+#define _NML_MATRIX_COLS TYPEHUD_MATRIX_COLS
+#else
+#define _NML_MATRIX_COLS (MATRIX_COLS * _PHYSICAL_PARTS)
+#endif
 
 #define _MATRIX_SIZE        2
 #if defined(TYPEHUD_MATRIX_ROTATE_90) || defined(TYPEHUD_MATRIX_ROTATE_270)
-#define _MATRIX_WIDTH       (MATRIX_ROWS * _MATRIX_SIZE + 2)
-#define _MATRIX_HEIGHT      (MATRIX_COLS * _MATRIX_SIZE + 2)
+#define _MATRIX_WIDTH       (_NML_MATRIX_ROWS * _MATRIX_SIZE + 2)
+#define _MATRIX_HEIGHT      (_NML_MATRIX_COLS * _MATRIX_SIZE + 2)
 #else
-#define _MATRIX_WIDTH       (MATRIX_COLS * _MATRIX_SIZE + 2)
-#define _MATRIX_HEIGHT      (MATRIX_ROWS * _MATRIX_SIZE + 2)
+#define _MATRIX_WIDTH       (_NML_MATRIX_COLS * _MATRIX_SIZE + 2)
+#define _MATRIX_HEIGHT      (_NML_MATRIX_ROWS * _MATRIX_SIZE + 2)
 #endif
 #define _MATRIX_X           0
 #define _MATRIX_Y           (_OLED_HEIGHT - _MATRIX_HEIGHT + 1)
@@ -54,7 +76,7 @@
 #define _GRAPH_MAX_WIDTH    (_OLED_WIDTH - _BAR_WIDTH - _AXIS_PAD_WIDTH - _CARET_WIDTH - _GRAPH_RPAD - _MATRIX_PAD_WIDTH)
 #define _GRAPH_WIDTH        (_GRAPH_MAX_WIDTH - 4)
 #define _GRAPH_HEIGHT       31
-#define _GRAPH_REFRESH      250
+#define _GRAPH_REFRESH      300
 #define _GRAPH_X            (_MATRIX_WIDTH + _MATRIX_RPAD)
 #define _GRAPH_Y            0
 // clang-format on
@@ -83,6 +105,10 @@ static void render_matrix(keyrecord_t *record) {
     uint8_t y      = _MATRIX_Y;
     uint8_t width  = _MATRIX_WIDTH;
     uint8_t height = _MATRIX_HEIGHT;
+#ifdef SPLIT_KEYBOARD
+    uint8_t rows = _NML_MATRIX_ROWS;
+    uint8_t cols = _NML_MATRIX_COLS;
+#endif
 
     // On initial render draw the matrix outline
     if (!is_initialized) {
@@ -98,9 +124,30 @@ static void render_matrix(keyrecord_t *record) {
     }
 
     // Determine position based on matrix rotation
+    // For split keyboards the keys on the right half get appended as additional rows and
+    // have their columns reset at 0
+#ifdef SPLIT_KEYBOARD
+    uint8_t row = (record->event.key.row % rows);
+    uint8_t col = record->event.key.col;
+    if (record->event.key.row >= rows) {
+        col += (cols / 2);
+    }
+#else
+    uint8_t row = record->event.key.row;
+    uint8_t col = record->event.key.col;
+#endif
+
+#ifdef TYPEHUD_MATRIX_ROW_SHIFT
+    row += TYPEHUD_MATRIX_ROW_SHIFT;
+#endif
+#ifdef TYPEHUD_MATRIX_COL_SHIFT
+    col += TYPEHUD_MATRIX_COL_SHIFT;
+#endif
+
+    // Scale position to key size
     uint8_t size = _MATRIX_SIZE;
-    uint8_t row  = record->event.key.row * size;
-    uint8_t col  = record->event.key.col * size;
+    row *= size;
+    col *= size;
 
     // Render key in matrix
     for (int i = 0; i < size; i++) {
@@ -339,6 +386,16 @@ void typehud_render(void) {
  * Handles keypresses for the typehud.
  */
 void typehud_process_record(keyrecord_t *record) {
+    // For split keyboards, only draw on correct side
+#ifdef SPLIT_KEYBOARD
+#    ifdef TYPEHUD_MASTER
+    if (!is_keyboard_master()) {
+#    else
+    if (is_keyboard_master()) {
+#    endif
+        return;
+    }
+#endif
     // Render/update matrix
     render_matrix(record);
 

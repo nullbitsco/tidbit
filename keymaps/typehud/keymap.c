@@ -58,10 +58,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ___, ___, ___, ___, ___, ___
   ),
 };
-
-#ifndef OLED_ROTATE
-#define OLED_ROTATE OLED_ROTATION_0
-#endif
 // clang-format on
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
