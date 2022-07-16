@@ -1,4 +1,4 @@
-VIA_ENABLE = yes
+# VIA_ENABLE = yes
 OLED_ENABLE = yes
 OLED_DRIVER = SSD1306
 

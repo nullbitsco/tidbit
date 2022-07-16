@@ -17,6 +17,11 @@
 #include "bongo_graphics.h"
 #include QMK_KEYBOARD_H
 
+// Needed for ARM platforms, as there is no PROGMEM
+#ifndef pgm_read_byte_near
+#define pgm_read_byte_near(addr) pgm_read_byte(addr)
+#endif
+
 #define _IDLE_FRAMES         5
 #define _PREP_FRAMES         1
 #define _TAP_FRAMES          2

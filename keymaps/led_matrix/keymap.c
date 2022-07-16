@@ -19,6 +19,10 @@
 #include "font.h"
 #include <stdlib.h>
 
+#ifndef pgm_read_byte_near
+#define pgm_read_byte_near(addr) pgm_read_byte(addr)
+#endif
+
 // The default matrix address is 0x70
 #define DISP_ADDR 0x70
 

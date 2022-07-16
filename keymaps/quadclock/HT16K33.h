@@ -20,8 +20,6 @@
 #include <i2c_master.h>
 #include <progmem.h>
 
-#define I2C_TIMEOUT 100
-
 #define OSC_ENABLED             0x01
 #define OSC_DISABLED            0x00
 
@@ -43,9 +41,21 @@
 #define HT16K33_BRIGHTNESS_MAX  0x0F
 
 void ht16K33_init(uint8_t addr),
-  ht16K33_setBlinkMode(uint8_t addr, uint8_t mode),
-  ht16K33_setBrightness(uint8_t addr, uint8_t brightness),
-  ht16K33_refresh(uint8_t addr, uint16_t *displayBuffer, uint8_t bufLen);
+    ht16K33_setBlinkMode(uint8_t addr, uint8_t mode),
+    ht16K33_setBrightness(uint8_t addr, uint8_t brightness),
+    ht16K33_refresh(uint8_t addr, uint16_t *displayBuffer, uint8_t bufLen);
+
+#ifndef I2C_TIMEOUT
+#define I2C_TIMEOUT 100
+#endif
+
+#if defined(__AVR__)
+#    define I2C_TRANSMIT_P(addr, data) i2c_transmit_P((addr << 1), &data[0], sizeof(data), I2C_TIMEOUT)
+#else 
+#    define I2C_TRANSMIT_P(addr, data) i2c_transmit((addr << 1), &data[0], sizeof(data), I2C_TIMEOUT)
+#endif // defined(__AVR__)
+
+#define I2C_WRITE_REG(addr, mode, data, size) i2c_writeReg((addr << 1), mode, data, size, I2C_TIMEOUT)
 
 #if defined(__AVR__)
 static i2c_status_t i2c_transmit_P(uint8_t address, const uint8_t *data, uint16_t length, uint16_t timeout) {
@@ -65,7 +75,7 @@ static i2c_status_t i2c_transmit_P(uint8_t address, const uint8_t *data, uint16_
 void ht16K33_init(uint8_t addr) {
     i2c_init();
     static const uint8_t PROGMEM data[] = {HT16K33_CMD_ENABLE | OSC_ENABLED};
-    i2c_transmit_P((addr << 1), &data[0], sizeof(data), I2C_TIMEOUT);
+    I2C_TRANSMIT_P(addr, data);
     ht16K33_setBrightness(addr, HT16K33_BRIGHTNESS_MIN);
     ht16K33_setBlinkMode(addr, HT16K33_BLINK_OFF);
 }
@@ -75,20 +85,26 @@ void ht16K33_setBlinkMode(uint8_t addr, uint8_t mode) {
         mode = HT16K33_BLINK_OFF;
     }
     uint8_t data[] = {(HT16K33_CMD_BLINK | mode << 1 | HT16K33_DISP_ON)};
-    i2c_transmit((addr << 1), &data[0], sizeof(data), I2C_TIMEOUT);
+    I2C_TRANSMIT_P(addr, data);
 }
 
 void ht16K33_setBrightness(uint8_t addr, uint8_t brightness) {
     uint8_t data[] = {(HT16K33_CMD_BRIGHTNESS | brightness)};
-    i2c_transmit((addr << 1), &data[0], sizeof(data), I2C_TIMEOUT);
+    I2C_TRANSMIT_P(addr, data);
 }
 
+// void ht16K33_refresh(uint8_t addr, uint16_t *displayBuffer, uint8_t bufLen) {
+//     I2C_WRITE_REG(addr, HT16K33_CMD_DISP, &displayBuffer, bufLen);
+// }
+
+// compiles at least 
 void ht16K33_refresh(uint8_t addr, uint16_t *displayBuffer, uint8_t bufLen) {
-    i2c_start((addr << 1), I2C_TIMEOUT);
-    i2c_write((uint8_t)HT16K33_CMD_DISP, I2C_TIMEOUT);
+    uint8_t data[] = {HT16K33_CMD_DISP};
+    I2C_TRANSMIT_P(addr, data);
     for (int i = 0; i < bufLen; i++) {
-        i2c_write((displayBuffer[i] & 0xFF), I2C_TIMEOUT);
-        i2c_write((displayBuffer[i] >> 8), I2C_TIMEOUT);
+        uint8_t data_lo[] = {displayBuffer[i] & 0xFF};
+        uint8_t data_hi[] = {displayBuffer[i] >> 8};
+        I2C_TRANSMIT_P(addr, data_lo);
+        I2C_TRANSMIT_P(addr, data_hi);
     }
-    i2c_stop();
 }
